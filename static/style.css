@@ -1,0 +1,34 @@
+html,
+body {
+  background-color: #F0EBE3;
+  height: 100%;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  margin-right: 10%;
+  margin-left: 10%;
+  background-color: #F6F5F2;
+  height: 100%;
+  border-radius: 10%;
+  margin-top: 10%;
+  box-shadow: 19px 1px 41px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+  display: inline-block;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+.navbar .nav-btn {
+  background-color: blue;
+}
+.navbar .nav-btn ul {
+  list-style-type: none;
+}
+.navbar .nav-btn ul li {
+  display: inline-block;
+  padding: 20px;
+}/*# sourceMappingURL=style.css.map */
