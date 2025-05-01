@@ -9,20 +9,20 @@
 <body>
     
     <div class="navbar">
-        <div class="logo"> <h1>To Do</h1></div>
+        <div class="logo"> <img src="static\img\logo.png" alt=""></div>
 
         <div class="nav-btn">
 
             <ul>
-                <li><button>Home</button> </li>
-                <li><button>Login</button></li>
-                <li><button>Contact us</button></li>
+                <li><a href="{{url_for('home')}}"><button>Home</button></a> </li>
+                <li><a href="{{url_for('login')}}"><button>Login</button></a></li>
+                <li><a href="{{url_for('contact')}}"><button>Contact us</button></a></li>
             </ul>
 
         </div>
 
-
     </div>
+
 
     <div class="page">
         {%block content%}

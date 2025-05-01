@@ -10,25 +10,69 @@ body {
   grid-template-rows: repeat(5, 1fr);
   margin-right: 10%;
   margin-left: 10%;
+  margin-top: 5%;
   background-color: #F6F5F2;
   height: 100%;
   border-radius: 10%;
-  margin-top: 10%;
   box-shadow: 19px 1px 41px rgba(0, 0, 0, 0.2);
+}
+.page .login-input {
+  grid-row: 2/span 2;
+  grid-column: 2/span 3;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.page .login-input form input {
+  display: block;
+}
+.page .login-input form .submit-btn {
+  width: 100%;
+  padding: 10%;
+  border-radius: 2%;
+  border: none;
+  background-color: #F3D0D7;
 }
 
 .navbar {
-  display: inline-block;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  align-items: center;
   margin-right: 10%;
   margin-left: 10%;
 }
+.navbar .logo {
+  grid-column: 1/span 2;
+  grid-row: 1;
+  width: 50%;
+  height: 50%;
+}
+.navbar .logo img {
+  width: 100%;
+  height: 100%;
+}
 .navbar .nav-btn {
-  background-color: blue;
+  grid-row: 1;
+  grid-column: 3/span 2;
+}
+.navbar .nav-btn button {
+  background-color: #9b9a97;
+  border: none;
+  border-radius: 5%;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 .navbar .nav-btn ul {
   list-style-type: none;
 }
 .navbar .nav-btn ul li {
+  width: 120px;
+  height: 40px;
+  padding: 5%;
   display: inline-block;
-  padding: 20px;
 }/*# sourceMappingURL=style.css.map */
