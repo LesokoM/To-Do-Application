@@ -13,9 +13,7 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        session["username"] = request.form.get["username"]
-        return redirect("/todolist")
+
     return render_template("login.html")
 
 
@@ -31,14 +29,19 @@ def contact():
 
 @app.route("/submit", methods=["POST"])
 def submit_form():
-    username = request.form["username"]
-    return redirect(url_for("todolist"))
+    if request.method == "POST":
+        session["username"] = request.form.get("username")
+        session["password"] = request.form.get("password")
+        return redirect(url_for("todolist"))
 
 
 @app.route("/todolist")
 def todolist():
+    if "username" in session:
+        return render_template("todolist.html")
+    else:
+        return "Not logged in"
 
-    return render_template("todolist.html")
 
 
 if __name__ == "__main__":

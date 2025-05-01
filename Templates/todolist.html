@@ -1,9 +1,70 @@
 {%extends "base.html"%}
 
 {%block content%}
-    {%if session%}
 
-<h3>Good day {{session.username}}</h3>
+<div class="notepad">
+
+    <div class="greeting"><h1>Welcome, {{session["username"]}}</h1></div>
+
+    <div class="notepad-page">
+        <div class="binder-url">
+            <img src="static\img\binder.svg" alt="">
+        </div>
+
+
+    </div>
+
+    <div class="add-task">
+
+        <form method= "POST" action="#">
+            <!-- when we post i just want it to updare the note pad
+             this tells me that the notepage-page should be able to get info
+             and store it. We dont chnage pages just update notepad -->
+
+            <div class="task">
+                <label for="task-name">Task:</label>
+                <input type="text" id="task-name" name="task-name">
+            </div>
+
+            <div class="deadline-div">
+
+                <label for="deadline">Due:</label>
+                <input type="date" id="deadline" name="deadline">
+            </div>
+            
+            <div class="category-div">
+                <label for="category">Category</label>
+                    <select name="dropdown" id="dropdown" aria-placeholder="Select Category">
+                        <option value="">Select an option</option>
+                        <option value="option1">Financial</option>
+                        <option value="option2">Goals</option>
+                        <option value="option3">Groceries</option>
+                        <option value="option4">Health</option>
+                        <option value="option5">Chores</option>
+
+                        <!-- Here i should cycle through
+                        the category db and display-->
+                    </select>
+
+                
+            </div>
+
+            <div class="add-btn">
+                <input type="submit" value="Submit" id="add-task-submit">
+            </div>
+        </form>
+        
+        
+        </form>
+
+
+
+    </div>
+
+
+
+</div>
+
 
 
 

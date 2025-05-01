@@ -1,56 +1,33 @@
+@font-face {
+    font-family: "Aloja";
+    src: url("/static/fonts/Aloja-Light.woff") format("woff");
+
+}
+
+
 html,
 body {
+    /*#F0EBE3*/
     background-color: #F0EBE3;
     height: 100%;
-}
 
-.page {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    margin-right: 10%;
-    margin-left: 10%;
-    margin-top: 5%;
-    background-color: #F6F5F2;
-    height: 100%;
-    border-radius: 10%;
-    box-shadow: 19px 1px 41px rgba(0, 0, 0, 0.2);
+    hr {
+        height: 0.5px;
+        background-color: #000000;
 
-    .login-input {
-        grid-row: 2/ span 2;
-        grid-column: 2 /span 3;
-        height: 100%;
-        width: 100%;
-        display: grid;
-        justify-content: center;
-        align-items: center;
-   
-        form {
-            
-            input {
-                display: block;
-            }
-            .submit-btn{
-                width: 100%;
-                padding: 10%;
-                border-radius: 2%;
-                border: none;
-                background-color: #F3D0D7;
-            }
-        }
+
     }
-
-
-
 }
+
+
 
 .navbar {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-content: space-around;
-    align-items: center;
-    margin-right: 10%;
-    margin-left: 10%;
+    align-items: start;
+
+
 
 
     .logo {
@@ -58,24 +35,25 @@ body {
         grid-row: 1;
         width: 50%;
         height: 50%;
+        align-self: start;
 
         img {
             width: 100%;
-            height: 100%;
+            height: 200%;
         }
 
 
     }
 
     .nav-btn {
-
+        align-self: center;
         grid-row: 1;
         grid-column: 3/ span 2;
-
+        justify-self: strat;
 
         button {
 
-            background-color: #9b9a97;
+            background-color: #F3D0D7;
             border: none;
             border-radius: 5%;
             cursor: pointer;
@@ -102,6 +80,218 @@ body {
         }
 
     }
+
+
+
+}
+
+.page {
+    display: grid;
+    grid-template-columns: repeat(5, 5fr);
+    grid-template-rows: repeat(6, 5fr);
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 5%;
+    height: 100%;
+
+
+    .homepage {
+        display: grid;
+        grid-column: 1 / -1;
+        /* Span all columns */
+        grid-row: 1 / -1;
+        /* Span all rows */
+
+        grid-gap: 5%;
+
+        .welcome {
+
+            grid-row: 1/ span 2;
+            grid-column: 1/ span 5;
+            border-radius: 19% 81% 24% 76% / 76% 26% 74% 24%;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.47);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(17.6px);
+            -webkit-backdrop-filter: blur(17.6px);
+        }
+
+        .features {
+
+            grid-row: 3/ span 2;
+            grid-column: 4/ span 6;
+            border-radius: 19% 81% 24% 76% / 76% 26% 74% 24%;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.47);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(17.6px);
+            -webkit-backdrop-filter: blur(17.6px);
+
+        }
+
+        .signup {
+
+            grid-row: 5/ span 2;
+            grid-column: 1/ span 7;
+            border-radius: 78% 22% 53% 47% / 55% 11% 89% 45%;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.47);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(17.6px);
+            -webkit-backdrop-filter: blur(17.6px);
+
+        }
+    }
+
+    .login-input {
+        grid-row: 2/ span 2;
+        grid-column: 2 /span 3;
+        height: 100%;
+        width: 100%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 16% 84% 39% 61% / 42% 61% 39% 58%;
+        background: rgba(255, 255, 255, 0.47);
+        padding: 10%;
+
+        form {
+
+            input {
+                display: block;
+            }
+
+            .submit-btn {
+                width: 100%;
+                padding: 10%;
+                border-radius: 2%;
+                border: none;
+                background-color: #F3D0D7;
+            }
+        }
+    }
+
+
+    .notepad {
+        display: grid;
+        grid-template-rows: auto 1fr 1fr 1fr;
+        grid-template-columns: repeat(9, 1fr);
+        grid-row: 1 / -1;
+        grid-column: 1/ -1;
+        justify-content: center;
+        align-content: center;
+
+
+        .greeting {
+            grid-column: 3/ span 4;
+            text-align: center;
+            font-family: "Aloja", sans-serif;
+            font-size: 1.5em;
+            align-self: center;
+
+
+            h1 {
+
+                margin-top: 0;
+                margin-bottom: 15%;
+            }
+
+        }
+
+        .notepad-page {
+            grid-row: 2/ span 5;
+            grid-column: 1/ span 6;
+            /* From https://css.glass */
+            background: rgba(104, 92, 92, 0.47);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(17.6px);
+            -webkit-backdrop-filter: blur(17.6px);
+
+            img {
+                position: absolute;
+                top: -9.5%;
+            }
+        }
+
+        .add-task {
+            grid-row: 2/ span 2;
+            grid-column: 7/ span 3;
+            margin-left: 15%;
+
+
+
+            /* From https://css.glass */
+            background: rgba(104, 92, 92, 0);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(16.9px);
+            -webkit-backdrop-filter: blur(16.9px);
+
+
+
+            form {
+                display: grid;
+    
+                grid-template-rows: repeat(4, 1fr);
+                width: 100%;
+                height: 100%;
+                align-items: center;
+                font-family: "Aloja", sans-serif;
+                text-align: center;
+
+
+                label {
+                    display: block;
+                   
+
+                }
+                input,select{
+                    padding-right: 5%;
+                    font-size: 100%;
+                    font-weight: bold;
+                    padding: 5%;
+                    width: 75%;
+                    outline: none;
+                    background: #FFFFFF;
+                    color: #000000;
+                    border: 0px solid #C4D1EB;
+                    border-radius: 18px;
+                
+                }
+
+
+                .task {
+                    grid-row: 1;
+                    
+                  
+
+                }
+
+                .deadline-div {
+                    grid-row: 2;
+                    
+                    input{
+                        max-width: 100%;
+                    }
+                }
+
+                .category-div {
+                    grid-row: 3;
+
+                }
+
+
+            }
+
+
+
+
+
+        }
+    }
+
 
 
 
