@@ -211,7 +211,7 @@ body {
 
             img {
                 position: absolute;
-                top: -9.5%;
+                top: -8%;
             }
         }
 
@@ -258,6 +258,11 @@ body {
                     color: #000000;
                     border: 0px solid #C4D1EB;
                     border-radius: 18px;
+
+                    #dropdown{
+                        padding:20;
+                    }
+
                 
                 }
 

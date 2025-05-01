@@ -157,7 +157,7 @@ body hr {
 }
 .page .notepad .notepad-page img {
   position: absolute;
-  top: -9.5%;
+  top: -8%;
 }
 .page .notepad .add-task {
   grid-row: 2/span 2;
@@ -193,6 +193,9 @@ body hr {
   color: #000000;
   border: 0px solid #C4D1EB;
   border-radius: 18px;
+}
+.page .notepad .add-task form input #dropdown, .page .notepad .add-task form select #dropdown {
+  padding: 20;
 }
 .page .notepad .add-task form .task {
   grid-row: 1;
