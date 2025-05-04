@@ -8,7 +8,23 @@
 
  when you login they check your info against the db
  then assign you a session and take you to the to do list 
-
-
  login page should have a " not signed up click here"
 -->
+
+{%extends "base.html"%}
+
+{%block content%}
+
+<div class="signup-div">
+
+    <div class="heading"><h1>Sign Up</h1></div>
+
+    <div class="signup-form">
+        <form method="POST" action="{{url_for('signup')}}></form>
+    </div>
+
+
+
+</div>
+
+{%endblock%}

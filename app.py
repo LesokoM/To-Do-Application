@@ -49,6 +49,13 @@ def get_db_connection():
 def home():
     return render_template("index.html")
 
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    if request.method == "POST":
+        pass
+        #send to db 
+    return render_template("signup.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

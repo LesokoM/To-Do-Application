@@ -16,12 +16,12 @@ body hr {
 
 .navbar {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   justify-content: space-around;
   align-items: start;
 }
 .navbar .logo {
-  grid-column: 1/span 2;
+  grid-column: 1/span 3;
   grid-row: 1;
   width: 50%;
   height: 50%;
@@ -34,8 +34,7 @@ body hr {
 .navbar .nav-btn {
   align-self: center;
   grid-row: 1;
-  grid-column: 3/span 2;
-  justify-self: strat;
+  grid-column: 3/span 4;
 }
 .navbar .nav-btn button {
   background-color: #F3D0D7;
@@ -125,6 +124,16 @@ body hr {
   border: none;
   background-color: #F3D0D7;
 }
+.page .signup-div {
+  grid-row: 1/span 4;
+  grid-column: 1/span 5;
+  border-radius: 5%;
+  background: rgba(255, 255, 255, 0.47);
+}
+.page .signup-div .heading {
+  font-family: "Aloja", sans-serif;
+  text-align: center;
+}
 .page .notepad {
   display: grid;
   grid-template-rows: auto 1fr 1fr 1fr;
@@ -182,7 +191,8 @@ body hr {
 .page .notepad .add-task form label {
   display: block;
 }
-.page .notepad .add-task form input, .page .notepad .add-task form select {
+.page .notepad .add-task form input,
+.page .notepad .add-task form select {
   padding-right: 5%;
   font-size: 100%;
   font-weight: bold;
@@ -194,7 +204,8 @@ body hr {
   border: 0px solid #C4D1EB;
   border-radius: 18px;
 }
-.page .notepad .add-task form input #dropdown, .page .notepad .add-task form select #dropdown {
+.page .notepad .add-task form input #dropdown,
+.page .notepad .add-task form select #dropdown {
   padding: 20;
 }
 .page .notepad .add-task form .task {
