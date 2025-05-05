@@ -167,6 +167,9 @@ body hr {
   justify-content: center;
   align-content: center;
 }
+.page .notepad p {
+  text-align: center;
+}
 .page .notepad .greeting {
   grid-column: 3/span 4;
   text-align: center;

@@ -3,6 +3,14 @@
 {%block content%}
 <div class="login-input">
 
+    {%with messages = get_flashed_messages() %}
+        {%if messages%}
+            {% for msg in messages%}
+                <p>{{msg}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+
     <div class="heading"><h1>LOG IN</h1></div>
 
 

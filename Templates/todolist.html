@@ -2,9 +2,17 @@
 
 {%block content%}
 
-<div class="notepad">
 
-    <div class="greeting"><h1>Welcome, {{session["username"]}}</h1></div>
+
+<div class="notepad">
+    {%with messages = get_flashed_messages() %}
+    {%if messages%}
+        {% for msg in messages%}
+            <p>{{msg}}</p>
+        {%endfor%}
+    {%endif%}
+    {%endwith%}
+    <div class="greeting"><h1>Welcome, {{username}}</h1></div>
 
     <div class="notepad-page">
         <div class="binder-url">

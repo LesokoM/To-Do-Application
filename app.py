@@ -65,7 +65,7 @@ def signup():
         db.commit()
 
         # flash signup successful
-        
+        flash("Signed up successfully!", "info")
         return redirect(url_for("login"))
     
     return render_template('signup.html')
@@ -80,17 +80,17 @@ def login():
         # check if that username and password is actually in the system 
         # if yes then go to do list and populate it with whatever is linked to that user
         db, cursor = get_db_connection()
-        user_username = request.form["username"]
-        user_password = request.form["password"]
+        username = request.form["username"]
+        password = request.form["password"]
 
         # this is already checking if that username and password is inside
         # if user_info i blank then we have something to work with
-        print("issue 1")
+
         cursor.execute('''
             SELECT username,password FROM users
             WHERE username = ? AND password = ?
-        ''', (user_username, user_password))
-        print("issue 2")
+        ''', (username, password))
+ 
         user_info = cursor.fetchall()
         # now compare the inputted info to the on in db
         # if it doesnt match they must go back to login 
@@ -98,16 +98,19 @@ def login():
         # if its correct then we go to to do list
         if len(user_info) == 0:
             # flash unsuccessful
+            flash("Login unuccessful. Try again", "info")
             return render_template("login.html")
 
         else:
             # flash successful
-            return redirect(url_for("todolist"))
+            session["loggedin"] = True
+            return redirect(url_for("todolist", username=username))
     return render_template("login.html")
 
 @app.route("/logout")
 def logout():
-    session.pop("username", None)
+    session.clear()
+    flash("You are logged out", "info")
     return redirect("/")
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -115,9 +118,11 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/todolist")
+@app.route("/todolist", methods=["GET"])
 def todolist():
-    return render_template("todolist.html")
+    username = request.args.get('username')
+
+    return render_template("todolist.html", username=username, loggedin=session.get('loggedin', True))
 
 
 

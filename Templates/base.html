@@ -14,13 +14,26 @@
         <div class="logo"> <img src="static\img\logo.png" alt=""></div>
 
         <div class="nav-btn">
+
+            {% if loggedin%}
+                <ul>
+                    <li><a href="{{url_for('home')}}"><button>Home</button></a> </li>
+                    <li><a href="{{url_for('logout')}}"><button>Log Out</button></a></li>
+                    <li><a href="{{url_for('contact')}}"><button>Contact us</button></a></li>
+                
+                </ul>
+            {%else%}
             <ul>
                 <li><a href="{{url_for('home')}}"><button>Home</button></a> </li>
                 <li><a href="{{url_for('login')}}"><button>Login</button></a></li>
                 <li><a href="{{url_for('signup')}}"><button>Sign Up</button></a></li>
                 <li><a href="{{url_for('contact')}}"><button>Contact us</button></a></li>
-               
+            
             </ul>
+
+            {%endif%}
+            
+                
 
         </div>
 
