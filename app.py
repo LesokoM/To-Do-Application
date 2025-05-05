@@ -14,7 +14,7 @@ def initialise_db():
     cursor.execute(
         '''
         CREATE TABLE IF NOT EXISTS users(
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE,
         password TEXT
         )''')
@@ -41,9 +41,11 @@ def initialise_db():
 initialise_db()
 
 def get_db_connection():
-    cursor = sqlite3.connect('app.db')
-    cursor.row_factory = sqlite3.Row
-    return cursor
+    # we are connecting to our database and return a variable
+    # that is linked to the db and can be used 
+    db = sqlite3.connect('app.db')
+    cursor = db.cursor()
+    return db, cursor
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -52,15 +54,41 @@ def home():
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
-        pass
-        #send to db 
-    return render_template("signup.html")
+        db, cursor = get_db_connection()
+        username = request.form["username"]
+        password = request.form["password"]
+        # send to db 
+        cursor.execute('''
+            INSERT OR IGNORE INTO users(username,password)
+            VALUES(?,?)''', (username, password))
+        
+        db.commit()
+        
+        return redirect(url_for("login"))
+    
+    return render_template('signup.html')
+
+
+
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        
+        username = request.form["username"]
+        password = request.form["password"]
+        
 
+        # check if that username and password is actually in the system 
+        # if yes then go to do list and populate it with whatever is linked to that user
+        user = cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username,password)).fetchone()
+        cursor.close()
+        return redirect(url_for("todolist"))
     return render_template("login.html")
+
+
+    
 
 
 @app.route("/logout")
@@ -73,29 +101,10 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/submit", methods=["POST"])
-def submit_form():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        cursor = get_db_connection()
-
-        # check if that username and password is actually in the system 
-        # if yes then go to do list and populate it with whatever is linked to that user
-        user = cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username,password)).fetchone()
-        cursor.close()
-        return redirect(url_for("todolist"))
-
-
-    return redirect(url_for("login")) #should return to sign up page
-
-
 @app.route("/todolist")
 def todolist():
-    if "username" in session:
-        return render_template("todolist.html")
-    else:
-        return "Not logged in"
+    return render_template("todolist.html")
+
 
 
 

@@ -3,12 +3,14 @@
 {%block content%}
 <div class="login-input">
 
+    <div class="heading"><h1>LOG IN</h1></div>
 
-    <form method="POST" action="{{url_for('submit_form')}}">
+
+    <form method="POST" action="{{url_for('login')}}">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
         <br>
-        <label for="password">Password::</label>
+        <label for="password">Password:</label>
         <input type="text" class="password" name="password">
         <br>
         <input type="submit" class="submit-btn" value ="Submit">

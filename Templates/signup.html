@@ -14,17 +14,22 @@
 {%extends "base.html"%}
 
 {%block content%}
-
 <div class="signup-div">
 
-    <div class="heading"><h1>Sign Up</h1></div>
-
-    <div class="signup-form">
-        <form method="POST" action="{{url_for('signup')}}></form>
-    </div>
+    <div class="heading"><h1>SIGN UP</h1></div>
 
 
+    <form method="POST" action="{{url_for('signup')}}">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br>
 
+        <label for="password">Password:</label>
+        <input type="text" class="password" name="password">
+        <br>
+
+        <input type="submit" class="submit-btn" value ="Submit">
+
+    </form> 
 </div>
-
 {%endblock%}
