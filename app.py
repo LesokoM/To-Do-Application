@@ -63,6 +63,8 @@ def signup():
             VALUES(?,?)''', (username, password))
         
         db.commit()
+
+        # flash signup successful
         
         return redirect(url_for("login"))
     
@@ -75,21 +77,33 @@ def signup():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        
-        username = request.form["username"]
-        password = request.form["password"]
-        
-
         # check if that username and password is actually in the system 
         # if yes then go to do list and populate it with whatever is linked to that user
-        user = cursor.execute('SELECT * FROM users WHERE username = ? AND password = ?', (username,password)).fetchone()
-        cursor.close()
-        return redirect(url_for("todolist"))
+        db, cursor = get_db_connection()
+        user_username = request.form["username"]
+        user_password = request.form["password"]
+
+        # this is already checking if that username and password is inside
+        # if user_info i blank then we have something to work with
+        print("issue 1")
+        cursor.execute('''
+            SELECT username,password FROM users
+            WHERE username = ? AND password = ?
+        ''', (user_username, user_password))
+        print("issue 2")
+        user_info = cursor.fetchall()
+        # now compare the inputted info to the on in db
+        # if it doesnt match they must go back to login 
+        # we must write incorrect somewhere
+        # if its correct then we go to to do list
+        if len(user_info) == 0:
+            # flash unsuccessful
+            return render_template("login.html")
+
+        else:
+            # flash successful
+            return redirect(url_for("todolist"))
     return render_template("login.html")
-
-
-    
-
 
 @app.route("/logout")
 def logout():
