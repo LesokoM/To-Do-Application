@@ -19,7 +19,39 @@
             <img src="static\img\binder.svg" alt="">
         </div>
 
-        
+        <div class="notepad-tasks">
+
+            <div class="completed_box">
+                <!-- this will have the checkbox that toggles completed = 1-->
+                Completed?
+            </div>
+
+            <div class="thetask">
+                {%for i in tasks%}
+                <div class="utask_name"> <p>{{i[0]}} </p></div>
+                <div class="utask_deadline"><p>{{i[1]}}</p></div>
+                {%endfor%}
+            </div>
+
+            <div class="edit_options">
+
+                <div class="edit_task">
+                    <!--make use of icons -->
+                    Edit task
+                </div>
+
+                <div class="delete_task">
+                    <!--make use of dustbin icon-->
+                    Delete task
+                </div>
+
+
+            </div>
+            
+        </div>
+
+
+
 
 
         

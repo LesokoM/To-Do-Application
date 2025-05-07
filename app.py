@@ -152,8 +152,24 @@ def todolist():
         ''', user_task)
         db.commit()
 
-        # now every time we post it has to display 
-        return render_template("todolist.html", username=username, loggedin=session.get('loggedin', True))
+
+        cursor.execute('''
+        SELECT id FROM users 
+        WHERE username = ?
+        ''', (username,))
+
+        db_id = cursor.fetchone()
+    
+        cursor.execute('''
+        SELECT task_name, completed FROM tasks
+        WHERE user_id = ?
+            ''', db_id)
+        
+        all_user_tasks = cursor.fetchall()
+        print(all_user_tasks)
+        return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
+       
+     # now every time we post it has to display 
 
     cursor.execute('''
     SELECT id FROM users 
@@ -161,7 +177,6 @@ def todolist():
     ''', (username,))
 
     db_id = cursor.fetchone()
-    print(db_id)
     cursor.execute('''
     SELECT task_name, completed FROM tasks
     WHERE user_id = ?
@@ -170,6 +185,7 @@ def todolist():
     user_tasks = cursor.fetchall()
     db.close()
     print(user_tasks)
+    # we're rendering the template with the information. Should be able to {{}} it in our html file
     return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
 
 
