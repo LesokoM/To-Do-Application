@@ -22,13 +22,22 @@ def initialise_db():
     cursor.execute(
         '''
         CREATE TABLE IF NOT EXISTS tasks(
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER,
         task_name TEXT,
         due_date TEXT,
         completed BOOLEAN DEFAULT 0,
+        category TEXT,
+        FOREIGN KEY(category) REFERENCES category(category_name),
         FOREIGN KEY(user_id) REFERENCES users(id)
         )''')
+    
+    cursor.execute(
+        '''
+        CREATE TABLE IF NOT EXISTS category(
+        category_name TEXT UNIQUE
+        )''')
+    
     conn.commit()
     conn.close()
 
@@ -118,11 +127,50 @@ def contact():
     return render_template("contact.html")
 
 
-@app.route("/todolist", methods=["GET"])
+@app.route("/todolist", methods=["GET", "POST"])
 def todolist():
     username = request.args.get('username')
+    db, cursor = get_db_connection() # we connect to our sever
+    if request.method == "POST":
+        user_task = [] # an empty list which we will feed
+        # we have to fetch the users unique ID so that the task is linked to a user
+        cursor.execute('''
+        SELECT id FROM users 
+        WHERE username = ?
+        ''', (username,))
 
-    return render_template("todolist.html", username=username, loggedin=session.get('loggedin', True))
+        db_id = cursor.fetchone()
+
+        user_task.append(db_id[0])
+        user_task.append(request.form["task-name"])
+        user_task.append(request.form["deadline"])
+        user_task.append(request.form["dropdown"])
+        user_task = tuple(user_task)
+        cursor.execute('''
+        INSERT INTO tasks(user_id, task_name, due_date, category)
+        VALUES(?,?,?,?)
+        ''', user_task)
+        db.commit()
+
+        # now every time we post it has to display 
+        return render_template("todolist.html", username=username, loggedin=session.get('loggedin', True))
+
+    cursor.execute('''
+    SELECT id FROM users 
+    WHERE username = ?
+    ''', (username,))
+
+    db_id = cursor.fetchone()
+    print(db_id)
+    cursor.execute('''
+    SELECT task_name, completed FROM tasks
+    WHERE user_id = ?
+        ''', db_id)
+    
+    user_tasks = cursor.fetchall()
+    db.close()
+    print(user_tasks)
+    return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
 
 
 
