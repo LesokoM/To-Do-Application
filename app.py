@@ -15,7 +15,7 @@ def initialise_db():
         '''
         CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE,
+        username TEXT ,
         password TEXT
         )''')
 
