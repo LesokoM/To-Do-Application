@@ -131,45 +131,54 @@ def contact():
 def todolist():
     username = request.args.get('username')
     db, cursor = get_db_connection() # we connect to our sever
+    user_task = [] # an empty list which we will feed
+
+    cursor.execute('''
+    SELECT id FROM users 
+    WHERE username = ?
+    ''', (username,))
+
+    db_id = cursor.fetchone()
+    posted_correct = True
+   
+    # if no information is given it has to flash then render template?  
     if request.method == "POST":
-        user_task = [] # an empty list which we will feed
         # we have to fetch the users unique ID so that the task is linked to a user
-        cursor.execute('''
-        SELECT id FROM users 
-        WHERE username = ?
-        ''', (username,))
-
-        db_id = cursor.fetchone()
-
         user_task.append(db_id[0])
-        user_task.append(request.form["task-name"])
+    
+        user_task.append(request.form["task-name"])     
         user_task.append(request.form["deadline"])
         user_task.append(request.form["dropdown"])
-        user_task = tuple(user_task)
-        cursor.execute('''
-        INSERT INTO tasks(user_id, task_name, due_date, category)
-        VALUES(?,?,?,?)
-        ''', user_task)
-        db.commit()
 
+        for i in range(1,len(user_task)):
+            print(user_task[i])
+            print(len(user_task[i]))
+            if len(user_task[i]) == 0:
+                flash("You have not filled in all the information")
+                cursor.execute('''
+                SELECT task_name, completed FROM tasks
+                WHERE user_id = ?
+                ''', db_id)
+                all_user_tasks = cursor.fetchall()
+                return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
+                
+        else:
+            user_task = tuple(user_task)
+            cursor.execute('''
+            INSERT INTO tasks(user_id, task_name, due_date, category)
+            VALUES(?,?,?,?)             
+            ''', user_task)
+            db.commit()
+        
 
-        cursor.execute('''
-        SELECT id FROM users 
-        WHERE username = ?
-        ''', (username,))
-
-        db_id = cursor.fetchone()
-    
         cursor.execute('''
         SELECT task_name, completed FROM tasks
         WHERE user_id = ?
             ''', db_id)
-        
         all_user_tasks = cursor.fetchall()
-        print(all_user_tasks)
         return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
        
-     # now every time we post it has to display 
+     # now every time we post it has to display
 
     cursor.execute('''
     SELECT id FROM users 

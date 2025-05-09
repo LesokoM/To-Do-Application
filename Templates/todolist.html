@@ -5,13 +5,7 @@
 
 
 <div class="notepad">
-    {%with messages = get_flashed_messages() %}
-        {%if messages%}
-            {% for msg in messages%}
-                <p>{{msg}}</p>
-            {%endfor%}
-        {%endif%}
-    {%endwith%}
+   
     <div class="greeting"><h1>Welcome, {{username}}</h1></div>
 
     <div class="binder-url">
@@ -51,6 +45,13 @@
     </div>
 
     <div class="add-task">
+        {%with messages = get_flashed_messages() %}
+            {%if messages%}
+                {% for msg in messages%}
+                    <p>{{msg}}</p>
+                {%endfor%}
+            {%endif%}
+        {%endwith%}
         <form method= "POST" action="#">
             <!-- when we post i just want it to updare the note pad
              this tells me that the notepage-page should be able to get info
