@@ -41,12 +41,6 @@ def initialise_db():
     conn.commit()
     conn.close()
 
-
-
-
-
-
-
 initialise_db()
 
 def get_db_connection():
@@ -78,10 +72,6 @@ def signup():
         return redirect(url_for("login"))
     
     return render_template('signup.html')
-
-
-
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -169,7 +159,6 @@ def todolist():
             VALUES(?,?,?,?)             
             ''', user_task)
             db.commit()
-        
 
         cursor.execute('''
         SELECT task_name, completed FROM tasks
@@ -198,6 +187,13 @@ def todolist():
     return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
 
 
+@app.route("/delete_task", methods=["POST"])
+def delete_task():
+    pass
+
+@app.route("/edit_task", methods=["POST"])
+def edit_task():
+    pass
 
 
 if __name__ == "__main__":

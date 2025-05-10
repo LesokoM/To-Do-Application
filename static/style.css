@@ -168,9 +168,6 @@ body hr {
   align-content: center;
   min-height: 100%;
 }
-.page .notepad p {
-  text-align: center;
-}
 .page .notepad .greeting {
   grid-column: 3/span 4;
   text-align: center;
@@ -227,9 +224,18 @@ body hr {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-.page .notepad .notepad-page .notepad_task .edit_options img {
-  max-height: 15%;
-  max-width: 15%;
+.page .notepad .notepad-page .notepad_task .completed_box .edit_options {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+}
+.page .notepad .notepad-page .notepad_task .completed_box .edit_options a,
+.page .notepad .notepad-page .notepad_task .completed_box .edit_options img {
+  width: 100%;
+  height: 100%;
 }
 .page .notepad .add-task {
   grid-row: 2/span 4;
