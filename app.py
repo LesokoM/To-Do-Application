@@ -80,6 +80,7 @@ def login():
         # if yes then go to do list and populate it with whatever is linked to that user
         db, cursor = get_db_connection()
         username = request.form["username"]
+        session['username'] = username
         password = request.form["password"]
 
         # this is already checking if that username and password is inside
@@ -175,6 +176,7 @@ def todolist():
     ''', (username,))
 
     db_id = cursor.fetchone()
+    print(db_id)
     cursor.execute('''
     SELECT task_name, completed FROM tasks
     WHERE user_id = ?
@@ -187,13 +189,15 @@ def todolist():
     return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
 
 
-@app.route("/delete_task", methods=["POST"])
+@app.route("/delete_task", methods=["GET", "POST"])
 def delete_task():
-    pass
+    username = session.get('username')
+    return  redirect(url_for("todolist", username=username))
 
-@app.route("/edit_task", methods=["POST"])
+@app.route("/edit_task", methods=["GET", "POST"])
 def edit_task():
-    pass
+    username = session.get('username')
+    return redirect(url_for("todolist", username=username))
 
 
 if __name__ == "__main__":
