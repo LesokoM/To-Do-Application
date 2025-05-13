@@ -305,27 +305,25 @@ body {
 
 
                     }
+                }
 
-                    .edit_options {
-                        width: 100%;
-                        height: 100%;
-                        display: grid;
-                        align-items: center;
-                        justify-content: center;
-                        background-color: red;
+                .edit_options {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
 
-                        a,
-                        img {
-
-                            width: 100%;
-                            height: 100%;
-                        }
-
-
+                    img {
+                        justify-items: center;
+                        width: 65%;
+                        height: 65%;
                     }
 
 
                 }
+
+
+
 
 
 
@@ -341,7 +339,7 @@ body {
             grid-column: 7/ span 3;
             margin-top: 13%;
             margin-left: 15%;
-            height: 100%;
+            height: 50%;
 
 
 
@@ -356,7 +354,6 @@ body {
 
             form {
                 display: grid;
-
                 grid-template-rows: repeat(4, 1fr);
                 width: 100%;
                 height: 100%;
