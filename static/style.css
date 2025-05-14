@@ -140,22 +140,18 @@ body hr {
   grid-row: 1/span 4;
   grid-column: 2/span 3;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
   border-radius: 5%;
   background: rgba(255, 255, 255, 0.47);
 }
 .page .signup-div .heading {
-  grid-row: 1;
-  grid-column: 2;
   font-family: "Aloja", sans-serif;
   text-align: center;
+  margin-top: 0;
 }
 .page .signup-div form {
-  grid-row: 2;
-  grid-column: 2;
+  margin-bottom: 15%;
 }
 .page .signup-div form input {
   display: block;
@@ -163,7 +159,7 @@ body hr {
   height: 100%;
 }
 .page .signup-div form .submit-btn {
-  width: 102%;
+  width: 100%;
   padding: 10%;
   border-radius: 2%;
   border: none;
@@ -189,7 +185,7 @@ body hr {
 }
 .page .notepad .greeting h1 {
   margin-top: 0;
-  margin-bottom: 15%;
+  margin-bottom: 5%;
 }
 .page .notepad .binder-url {
   grid-row: 2;
