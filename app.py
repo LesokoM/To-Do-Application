@@ -120,7 +120,9 @@ def contact():
 
 @app.route("/todolist", methods=["GET", "POST"])
 def todolist():
-    username = request.args.get('username')
+
+    username = session.get('username')
+    print(username)
     db, cursor = get_db_connection() # we connect to our sever
     user_task = [] # an empty list which we will feed
 
@@ -130,7 +132,7 @@ def todolist():
     ''', (username,))
 
     db_id = cursor.fetchone()
-    posted_correct = True
+
    
     # if no information is given it has to flash then render template?  
     if request.method == "POST":
@@ -206,10 +208,36 @@ def delete_task(id):
 
 @app.route("/edit_task/<int:id>", methods=["GET", "POST"])
 def edit_task(id):
+    if request.method == "POST":
+        db, cursor = get_db_connection()
 
-    db, cursor = get_db_connection() 
+        user_task = []
 
-    return render_template("edit.html", loggedin=session.get('loggedin', True))
+        user_task.append(request.form["task-name"])     
+        user_task.append(request.form["deadline"])
+        user_task.append(request.form["dropdown"])
+       
+   
+        for i in range(0, len(user_task)):
+            if len(user_task[i]) == 0:
+                flash("You have not filled in all the information")
+                return render_template("edit_task.html", task = id)
+        
+        user_task.append(id)
+        user_task = tuple(user_task)
+        
+        cursor.execute('''
+            UPDATE tasks
+            SET task_name = ?, due_date = ?, category= ?
+            WHERE id = ?
+        ''', user_task)
+
+        db.commit()
+        db.close()
+
+        return redirect(url_for("todolist"))
+
+    return render_template("edit_task.html", task = id)
 
 
 if __name__ == "__main__":

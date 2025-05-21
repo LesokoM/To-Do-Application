@@ -1,0 +1,48 @@
+
+{%extends "base.html"%}
+
+{%block content%}
+
+<div class="edit-task">
+    {%with messages = get_flashed_messages() %}
+        {%if messages%}
+            {% for msg in messages%}
+                <p>{{msg}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    <form method= "POST" action="{{url_for('edit_task',id=task)}}">
+   
+
+        <div class="task">
+            <label for="task-name">Edit Task:</label>
+            <input type="text" id="task-name" name="task-name">
+        </div>
+
+        <div class="deadline-div">
+            <label for="deadline">Due:</label>
+            <input type="date" id="deadline" name="deadline">
+        </div>
+        
+        <div class="category-div">
+            <label for="category">Category</label>
+                <select name="dropdown" id="dropdown" aria-placeholder="Select Category">
+                    <option value="">Select an option</option>
+                    <option value="Financial">Financial</option>
+                    <option value="Goals">Goals</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Health">Health</option>
+                    <option value="Chores">Chores</option>
+
+                </select>
+
+            
+        </div>
+        <div class="add-btn">
+            <input type="submit" value="Submit" id="add-task-submit">
+        </div>
+    </form>
+        
+</div>
+
+{%endblock%}
