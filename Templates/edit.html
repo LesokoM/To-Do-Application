@@ -1,50 +1,8 @@
+
 {%extends "base.html"%}
 
 {%block content%}
-
-
-
-<div class="notepad">
-   
-    <div class="greeting"><h1>Welcome, {{username}}</h1></div>
-
-    <div class="binder-url">
-        <img src="static\img\binder.svg" alt="">
-    </div>
-    
-    <div class="notepad-page">
-
-        <form method= "POST" action="#" class="notepad_task">
-     
-
-            {%for i in tasks%}
-
-                <div class="completed_box">
-                    <!-- this will have the checkbox that toggles completed = 1-->
-                    <input type="checkbox">
-                </div>
-
-                <div class="thetask">
-                    <div class="utask_name"> <p>{{i[0]}} </p></div>
-                </div>
-
-                <div class="edit_options">
-                  
-                    <!--make use of icons -->
-                    <a href="{{url_for('edit_task', id=i[1])}}" class="edit"><img src="static\img\editpen.svg" alt=""></a>
-            
-
-            
-                    <a href="{{url_for('delete_task',id=i[1])}}" class="delete"><img src="static\img\bin.svg" alt=""></a>
-                    <!--make use of dustbin icon-->
-                
-                </div> 
-            {%endfor%}
-        </form>
-
-    </div>
-
-    <div class="add-task">
+<div class="edit-task">
         {%with messages = get_flashed_messages() %}
             {%if messages%}
                 {% for msg in messages%}
@@ -94,17 +52,5 @@
         </form>
         
     </div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
 
 {%endblock%}

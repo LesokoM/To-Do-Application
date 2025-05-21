@@ -142,8 +142,7 @@ def todolist():
         user_task.append(request.form["dropdown"])
 
         for i in range(1,len(user_task)):
-            print(user_task[i])
-            print(len(user_task[i]))
+    
             if len(user_task[i]) == 0:
                 flash("You have not filled in all the information")
                 cursor.execute('''
@@ -162,7 +161,7 @@ def todolist():
             db.commit()
 
         cursor.execute('''
-        SELECT task_name, completed FROM tasks
+        SELECT task_name, id, completed FROM tasks
         WHERE user_id = ?
             ''', db_id)
         all_user_tasks = cursor.fetchall()
@@ -176,28 +175,41 @@ def todolist():
     ''', (username,))
 
     db_id = cursor.fetchone()
-    print(db_id)
+ 
     cursor.execute('''
-    SELECT task_name, completed FROM tasks
+    SELECT task_name, id, completed FROM tasks
     WHERE user_id = ?
         ''', db_id)
     
     user_tasks = cursor.fetchall()
     db.close()
-    print(user_tasks)
+
+
+
     # we're rendering the template with the information. Should be able to {{}} it in our html file
     return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
 
 
-@app.route("/delete_task", methods=["GET", "POST"])
-def delete_task():
+@app.route("/delete_task/<int:id>", methods=["GET", "POST"])
+def delete_task(id):
     username = session.get('username')
-    return  redirect(url_for("todolist", username=username))
-
-@app.route("/edit_task", methods=["GET", "POST"])
-def edit_task():
-    username = session.get('username')
+    db, cursor = get_db_connection() 
+    cursor.execute('''
+        DELETE FROM tasks WHERE id=?             
+        ''', (id,))
+    
+    db.commit()
+    db.close()
+    
     return redirect(url_for("todolist", username=username))
+
+
+@app.route("/edit_task/<int:id>", methods=["GET", "POST"])
+def edit_task(id):
+
+    db, cursor = get_db_connection() 
+
+    return render_template("edit.html", loggedin=session.get('loggedin', True))
 
 
 if __name__ == "__main__":
