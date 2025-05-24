@@ -220,50 +220,35 @@ body hr {
 .page .notepad .notepad-page {
   grid-row: 3/span 8;
   grid-column: 1/span 6;
+  align-items: center;
   /* From https://css.glass */
   background: rgba(104, 92, 92, 0.47);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(17.6px);
   -webkit-backdrop-filter: blur(17.6px);
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   font-family: "Aloja", sans-serif;
 }
-.page .notepad .notepad-page .notepad_task {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  justify-items: center;
+.page .notepad .notepad-page .completed_box {
+  grid-column: 1;
+  padding-left: 30%;
 }
-.page .notepad .notepad-page .notepad_task .completed_box {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  align-items: center;
-  justify-content: center;
+.page .notepad .notepad-page .completed {
+  text-decoration: line-through;
 }
-.page .notepad .notepad-page .notepad_task .completed_box input[type=checkbox] {
-  align-self: center;
-  background-color: #F3D0D7;
-  border: 2px solid #F3D0D7;
-  border-radius: 30px;
-  width: 110%;
-  height: 110%;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-.page .notepad .notepad-page .notepad_task .edit_options {
-  width: 100%;
-  height: 100%;
+.page .notepad .notepad-page .edit_options {
+  grid-column: 3;
   display: flex;
+  /* Use flexbox for alignment */
   justify-content: center;
+  gap: 25%;
 }
-.page .notepad .notepad-page .notepad_task .edit_options img {
-  justify-items: center;
-  width: 65%;
-  height: 65%;
+.page .notepad .notepad-page .edit_options a {
+  width: 20%;
+  height: 20%;
 }
-.page .notepad .add-task {
+.page .add-task {
   grid-row: 2/span 4;
   grid-column: 7/span 3;
   margin-top: 13%;
@@ -276,7 +261,7 @@ body hr {
   backdrop-filter: blur(16.9px);
   -webkit-backdrop-filter: blur(16.9px);
 }
-.page .notepad .add-task form {
+.page .add-task form {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   width: 100%;
@@ -285,11 +270,11 @@ body hr {
   font-family: "Aloja", sans-serif;
   text-align: center;
 }
-.page .notepad .add-task form label {
+.page .add-task form label {
   display: block;
 }
-.page .notepad .add-task form input,
-.page .notepad .add-task form select {
+.page .add-task form input,
+.page .add-task form select {
   padding-right: 5%;
   font-size: 100%;
   font-weight: bold;
@@ -301,23 +286,24 @@ body hr {
   border: 0px solid #C4D1EB;
   border-radius: 18px;
 }
-.page .notepad .add-task form input #dropdown,
-.page .notepad .add-task form select #dropdown {
+.page .add-task form input #dropdown,
+.page .add-task form select #dropdown {
   padding: 20;
 }
-.page .notepad .add-task form .task {
+.page .add-task form .task {
   grid-row: 1;
 }
-.page .notepad .add-task form .deadline-div {
+.page .add-task form .deadline-div {
   grid-row: 2;
 }
-.page .notepad .add-task form .deadline-div input {
+.page .add-task form .deadline-div input {
   max-width: 100%;
 }
-.page .notepad .add-task form .category-div {
+.page .add-task form .category-div {
   grid-row: 3;
 }
-.page .edit-task {
+
+.edit-task {
   grid-row: 2/span 4;
   grid-column: 2/span 3;
   display: grid;
@@ -334,7 +320,7 @@ body hr {
   backdrop-filter: blur(16.9px);
   -webkit-backdrop-filter: blur(16.9px);
 }
-.page .edit-task form {
+.edit-task form {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   width: 100%;
@@ -343,11 +329,11 @@ body hr {
   font-family: "Aloja", sans-serif;
   text-align: center;
 }
-.page .edit-task form label {
+.edit-task form label {
   display: block;
 }
-.page .edit-task form input,
-.page .edit-task form select {
+.edit-task form input,
+.edit-task form select {
   padding-right: 5%;
   font-size: 100%;
   font-weight: bold;
@@ -359,19 +345,19 @@ body hr {
   border: 0px solid #C4D1EB;
   border-radius: 18px;
 }
-.page .edit-task form input #dropdown,
-.page .edit-task form select #dropdown {
+.edit-task form input #dropdown,
+.edit-task form select #dropdown {
   padding: 20;
 }
-.page .edit-task form .task {
+.edit-task form .task {
   grid-row: 1;
 }
-.page .edit-task form .deadline-div {
+.edit-task form .deadline-div {
   grid-row: 2;
 }
-.page .edit-task form .deadline-div input {
+.edit-task form .deadline-div input {
   max-width: 100%;
 }
-.page .edit-task form .category-div {
+.edit-task form .category-div {
   grid-row: 3;
 }/*# sourceMappingURL=style.css.map */

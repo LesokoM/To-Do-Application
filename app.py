@@ -113,18 +113,29 @@ def logout():
     flash("You are logged out", "info")
     return redirect("/")
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    return render_template("contact.html")
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+    return render_template("add_category.html")
 
 
 @app.route("/todolist", methods=["GET", "POST"])
 def todolist():
-
-    username = session.get('username')
-    print(username)
+    
     db, cursor = get_db_connection() # we connect to our sever
     user_task = [] # an empty list which we will feed
+
+    if "task_id" in request.form:
+        # we know that user has ticked something off
+        task_id = request.form.get("task_id")
+        cursor.execute('''
+        UPDATE tasks 
+        SET completed = 1
+        WHERE id = ?
+        
+        ''', (task_id,))
+        db.commit()
+    
+    username = session.get('username')
 
     cursor.execute('''
     SELECT id FROM users 
@@ -133,43 +144,46 @@ def todolist():
 
     db_id = cursor.fetchone()
 
+
    
     # if no information is given it has to flash then render template?  
     if request.method == "POST":
         # we have to fetch the users unique ID so that the task is linked to a user
-        user_task.append(db_id[0])
-    
-        user_task.append(request.form["task-name"])     
-        user_task.append(request.form["deadline"])
-        user_task.append(request.form["dropdown"])
+        
+        if "task-name" in request.form:
+            user_task.append(db_id[0])
+        
+            user_task.append(request.form["task-name"])     
+            user_task.append(request.form["deadline"])
+            user_task.append(request.form["dropdown"])
 
-        for i in range(1,len(user_task)):
-    
-            if len(user_task[i]) == 0:
-                flash("You have not filled in all the information")
+            for i in range(1,len(user_task)):
+        
+                if len(user_task[i]) == 0:
+                    flash("You have not filled in all the information")
+                    cursor.execute('''
+                    SELECT task_name, completed FROM tasks
+                    WHERE user_id = ?
+                    ''', db_id)
+                    all_user_tasks = cursor.fetchall()
+                    return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
+                    
+            else:
+                user_task = tuple(user_task)
                 cursor.execute('''
-                SELECT task_name, completed FROM tasks
-                WHERE user_id = ?
-                ''', db_id)
-                all_user_tasks = cursor.fetchall()
-                return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
-                
-        else:
-            user_task = tuple(user_task)
-            cursor.execute('''
-            INSERT INTO tasks(user_id, task_name, due_date, category)
-            VALUES(?,?,?,?)             
-            ''', user_task)
-            db.commit()
+                INSERT INTO tasks(user_id, task_name, due_date, category)
+                VALUES(?,?,?,?)             
+                ''', user_task)
+                db.commit()
 
-        cursor.execute('''
-        SELECT task_name, id, completed FROM tasks
-        WHERE user_id = ?
-            ''', db_id)
-        all_user_tasks = cursor.fetchall()
-        return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
-       
-     # now every time we post it has to display
+            cursor.execute('''
+            SELECT task_name, id, completed FROM tasks
+            WHERE user_id = ?
+                ''', db_id)
+            all_user_tasks = cursor.fetchall()
+            return render_template("todolist.html", username=username, tasks=all_user_tasks, loggedin=session.get('loggedin', True))
+        
+        # now every time we post it has to display
 
     cursor.execute('''
     SELECT id FROM users 
@@ -190,6 +204,9 @@ def todolist():
 
     # we're rendering the template with the information. Should be able to {{}} it in our html file
     return render_template("todolist.html", username=username, tasks=user_tasks, loggedin=session.get('loggedin', True))
+
+
+
 
 
 @app.route("/delete_task/<int:id>", methods=["GET", "POST"])
